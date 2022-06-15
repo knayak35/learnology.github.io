@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="card">
+        <h2 id="title" contenteditable>Card Title</h2>
+        <p id="content" contenteditable>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic molestiae dolor, veritatis ex provident quia vero odit ducimus fugiat illo repudiandae doloribus. Quibusdam aliquid, quasi ipsam sint ab porro ex?</p>
+      </div>
+
+      <script>
+        const editables = document.querySelectorAll("[contenteditable]");
+
+// save edits
+editables.forEach(el => {
+  el.addEventListener("blur", () => {
+    localStorage.setItem("dataStorage-" + el.id, el.innerHTML);
+  })
+});
+
+// once on load
+for (var key in localStorage) {
+  if (key.includes("dataStorage-")) {
+    const id = key.replace("dataStorage-","");
+    document.querySelector("#" + id).innerHTML = localStorage.getItem(key);
+  }
+}
+      </script>
