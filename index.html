@@ -1,32 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div class="card">
-        <h2 id="title" contenteditable>Card Title</h2>
-        <p id="content" contenteditable>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Hic molestiae dolor, veritatis ex provident quia vero odit ducimus fugiat illo repudiandae doloribus. Quibusdam aliquid, quasi ipsam sint ab porro ex?</p>
-      </div>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+  </head>
+  <body>
+    <center>
+    <h1>Cat Image Generator</h1>
+<br><br>
+    <p>Click the button below to get a handful of cat images.</p>
 
-      <script>
-        const editables = document.querySelectorAll("[contenteditable]");
+    <input type="button" id="showImage" value="Show Image"/>
+<br><br><br>
 
-// save edits
-editables.forEach(el => {
-  el.addEventListener("blur", () => {
-    localStorage.setItem("dataStorage-" + el.id, el.innerHTML);
-  })
-});
 
-// once on load
-for (var key in localStorage) {
-  if (key.includes("dataStorage-")) {
-    const id = key.replace("dataStorage-","");
-    document.querySelector("#" + id).innerHTML = localStorage.getItem(key);
+  </body>
+  
+</html>
+<br><br><br><br><br><br>
+
+
+<style>
+    img {
+  display: block;
+  margin-top: 10px;
+}
+
+h1 {
+  font-size: 72px;
+  background: -webkit-linear-gradient(rgb(255, 5, 5), rgb(228, 164, 15), rgb(228, 15, 224));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 22px;
+}
+
+
+</style>
+
+<script>
+    document.getElementById("showImage").onclick = showImage;
+
+function showImage() {
+  var images = [
+    {link: "https://www.rd.com/wp-content/uploads/2021/01/GettyImages-1175550351.jpg",
+    width: "250",
+    height: "175"},
+    {link: "https://i.pinimg.com/originals/01/6f/72/016f72c5812e1b8f71bdbf19d8c7558b.jpg",
+    width: "350",
+    height: "250"},
+    {link: "https://nationaltoday.com/wp-content/uploads/2020/08/international-cat-day-640x514.jpg",
+    width: "500",
+    height: "343"},
+    {link: "https://www.humanesociety.org/sites/default/files/2022-08/hl-yp-cats-579652.jpg",
+    width: "500",
+    height: "343", },
+    {link: "https://raw.githubusercontent.com/knayak35/cat-images/main/lily1.png",
+    width: "300",
+    height: "500", },
+    {link: "https://raw.githubusercontent.com/knayak35/cat-images/main/lily2.png",
+    width: "350",
+    height: "500", }, 
+    {link: "https://raw.githubusercontent.com/knayak35/cat-images/main/lily3.png",
+    width: "300",
+    height: "500", }
+
+    
+];
+  
+  var random = Math.floor(Math.random() * images.length);
+  
+  var image = document.createElement("img");
+  image.src = images[random].link;
+  image.width = images[random].width;
+  image.height = images[random].height;
+
+  
+  
+  var elImgs = document.getElementsByTagName("img");
+  
+  if (elImgs.length > 0) {
+    document.body.replaceChild(image, elImgs[0]);
+  } else {
+    document.body.appendChild(image);
   }
 }
-      </script>
+
+</script>
