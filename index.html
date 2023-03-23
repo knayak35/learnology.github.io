@@ -4,107 +4,88 @@
 	<title>To-Do List</title>
 	<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 	<style>
-		body {
-			font-family: 'Poppins', sans-serif;
-			background-color: #f7f7f7;
-		}
-		h1 {
-			text-align: center;
-			margin-top: 40px;
-			margin-bottom: 20px;
-			color: #34495e;
-		}
-		.container {
-			margin: auto;
-			width: 80%;
-			background-color: #fff;
-			border-radius: 10px;
-			box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
-			padding: 30px;
-		}
-		.form-group {
-			margin-bottom: 20px;
-		}
-		.form-group label {
-			display: block;
-			margin-bottom: 10px;
-			color: #34495e;
-		}
-		.form-group input[type="text"] {
-			padding: 10px;
-			border: none;
-			background-color: #f7f7f7;
-			border-radius: 5px;
-			width: 100%;
-			font-size: 16px;
-			color: #34495e;
-			box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
-		}
-		.form-group button {
-			padding: 10px 20px;
-			background-color: #2ecc71;
-			border: none;
-			color: #fff;
-			font-size: 16px;
-			border-radius: 5px;
-			cursor: pointer;
-			box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
-			transition: all 0.3s ease;
-		}
-		.form-group button:hover {
-			transform: translateY(-5px);
-			box-shadow: 0px 10px 15px rgba(0,0,0,0.2);
-		}
-		ul {
-			margin-top: 30px;
-			padding-left: 0;
-			list-style: none;
-		}
-		li {
-			padding: 10px;
-			background-color: #fff;
-			margin-bottom: 10px;
-			border-radius: 5px;
-			box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
-			position: relative;
-		}
-		li span {
-			position: absolute;
-			top: 50%;
-			left: 10px;
-			transform: translateY(-50%);
-			cursor: pointer;
-			color: #34495e;
-			font-size: 24px;
-			transition: all 0.3s ease;
-		}
-		li span:hover {
-			color: #e74c3c;
-		}
-		li.checked {
-			background-color: #f2f2f2;
-			text-decoration: line-through;
-			color: #ccc;
-		}
-		.clear {
-			margin-top: 30px;
-			text-align: right;
-		}
-		.clear button {
-			padding: 10px 20px;
-			background-color: #e74c3c;
-			border: none;
-			color: #fff;
-			font-size: 16px;
-			border-radius: 5px;
-			cursor: pointer;
-			box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
-			transition: all 0.3s ease;
-		}
-		.clear button:hover {
-			transform: translateY(-5px);
-			box-shadow: 0px 10px 15px rgba(0,0,0,0.2);
-		}
+	body {
+		font-family: 'Poppins', sans-serif;
+		margin: 0;
+		padding: 0;
+		background-color: #f7f7f7;
+	}
+	h1 {
+		text-align: center;
+		margin-top: 50px;
+	}
+	.container {
+		margin: 50px auto;
+		width: 80%;
+		background-color: #fff;
+		padding: 30px;
+		box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
+		border-radius: 5px;
+	}
+	.form-group {
+		margin-bottom: 20px;
+	}
+	label {
+		display: block;
+		margin-bottom: 5px;
+	}
+	input[type="text"] {
+		padding: 10px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		width: 100%;
+	}
+	button[type="submit"] {
+		background-color: #e91e63;
+		color: #fff;
+		border: none;
+		padding: 10px 20px;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+	button[type="submit"]:hover {
+		background-color: #c2185b;
+	}
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	li {
+		padding: 10px;
+		margin-bottom: 10px;
+		position: relative;
+	}
+	li span {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		color: #e91e63;
+		cursor: pointer;
+	}
+	li.checked {
+		text-decoration: line-through;
+		color: #aaa;
+	}
+	.clear {
+		text-align: center;
+		margin-top: 30px;
+	}
+	.clear button {
+		background-color: #fff;
+		color: #e91e63;
+		border: 1px solid #e91e63;
+		padding: 10px 20px;
+		border-radius: 5px;
+		cursor: pointer;
+		box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
+		transition: all 0.3s ease;
+	}
+	.clear button:hover {
+		transform: translateY(-5px);
+		box-shadow: 0px 10px 15px rgba(0,0,0,0.2);
+	}
+
 	</style>
 </head>
 <body>
@@ -175,7 +156,7 @@
 						items[i] = items[i].substring(1);
 					} else {
 						li.classList.add('checked');
-						items[i] = '-' + items[i];
+						items[i] = ' -' + items[i];
 					}
 					localStorage.setItem('items', JSON.stringify(items));
 				});
