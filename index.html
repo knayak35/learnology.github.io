@@ -1,93 +1,187 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8"/>
-    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-  </head>
-  <body>
-    <center>
-    <h1>Cat Image Generator</h1>
-<br><br>
-    <p>Click the button below to get a handful of cat images.</p>
+<head>
+	<title>To-Do List</title>
+	<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+	<style>
+		body {
+			font-family: 'Poppins', sans-serif;
+			background-color: #f7f7f7;
+		}
+		h1 {
+			text-align: center;
+			margin-top: 40px;
+			margin-bottom: 20px;
+			color: #34495e;
+		}
+		.container {
+			margin: auto;
+			width: 80%;
+			background-color: #fff;
+			border-radius: 10px;
+			box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
+			padding: 30px;
+		}
+		.form-group {
+			margin-bottom: 20px;
+		}
+		.form-group label {
+			display: block;
+			margin-bottom: 10px;
+			color: #34495e;
+		}
+		.form-group input[type="text"] {
+			padding: 10px;
+			border: none;
+			background-color: #f7f7f7;
+			border-radius: 5px;
+			width: 100%;
+			font-size: 16px;
+			color: #34495e;
+			box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
+		}
+		.form-group button {
+			padding: 10px 20px;
+			background-color: #2ecc71;
+			border: none;
+			color: #fff;
+			font-size: 16px;
+			border-radius: 5px;
+			cursor: pointer;
+			box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
+			transition: all 0.3s ease;
+		}
+		.form-group button:hover {
+			transform: translateY(-5px);
+			box-shadow: 0px 10px 15px rgba(0,0,0,0.2);
+		}
+		ul {
+			margin-top: 30px;
+			padding-left: 0;
+			list-style: none;
+		}
+		li {
+			padding: 10px;
+			background-color: #fff;
+			margin-bottom: 10px;
+			border-radius: 5px;
+			box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
+			position: relative;
+		}
+		li span {
+			position: absolute;
+			top: 50%;
+			left: 10px;
+			transform: translateY(-50%);
+			cursor: pointer;
+			color: #34495e;
+			font-size: 24px;
+			transition: all 0.3s ease;
+		}
+		li span:hover {
+			color: #e74c3c;
+		}
+		li.checked {
+			background-color: #f2f2f2;
+			text-decoration: line-through;
+			color: #ccc;
+		}
+		.clear {
+			margin-top: 30px;
+			text-align: right;
+		}
+		.clear button {
+			padding: 10px 20px;
+			background-color: #e74c3c;
+			border: none;
+			color: #fff;
+			font-size: 16px;
+			border-radius: 5px;
+			cursor: pointer;
+			box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
+			transition: all 0.3s ease;
+		}
+		.clear button:hover {
+			transform: translateY(-5px);
+			box-shadow: 0px 10px 15px rgba(0,0,0,0.2);
+		}
+	</style>
+</head>
+<body>
+	<h1>To-Do List</h1>
+	<div class="container">
+		<form id="addForm">
+			<div class="form-group">
+				<label for="newItem">Add a new item:</label>
+				<input type="text" id="newItem" placeholder="Type here...">
+			</div>
+			<div class="form-group">
+				<button type="submit">Add Item</button>
+			</div>
+		</form>
+		<ul id="itemsList">
+		</ul>
+		<div class="clear">
+			<button id="clearBtn">Clear All</button>
+		</div>
+	</div>
+	<script>
+		// Get the stored items if any
+		let items = JSON.parse(localStorage.getItem('items')) || [];
 
-    <input type="button" id="showImage" value="Show Image"/>
-<br><br><br>
+		// Render the stored items to the list
+		renderItems();
 
+		// Add a new item to the list
+		document.querySelector('#addForm').addEventListener('submit', function(e) {
+			e.preventDefault();
+			let newItem = document.querySelector('#newItem').value.trim();
+			if (newItem !== '') {
+				items.push(newItem);
+				localStorage.setItem('items', JSON.stringify(items));
+				renderItems();
+				document.querySelector('#newItem').value = '';
+			}
+		});
 
-  </body>
-  
+		// Clear all items from the list
+		document.querySelector('#clearBtn').addEventListener('click', function() {
+			items = [];
+			localStorage.removeItem('items');
+			renderItems();
+		});
+
+		// Render the items to the list
+		function renderItems() {
+			let itemsList = document.querySelector('#itemsList');
+			itemsList.innerHTML = '';
+			for (let i = 0; i < items.length; i++) {
+				let li = document.createElement('li');
+				li.innerText = items[i];
+				let span = document.createElement('span');
+				span.innerHTML = '&times;';
+				span.addEventListener('click', function() {
+					items.splice(i, 1);
+					localStorage.setItem('items', JSON.stringify(items));
+					renderItems();
+				});
+				li.appendChild(span);
+				if (items[i].startsWith('-')) {
+					li.classList.add('checked');
+				}
+				li.addEventListener('click', function() {
+					if (li.classList.contains('checked')) {
+						li.classList.remove('checked');
+						items[i] = items[i].substring(1);
+					} else {
+						li.classList.add('checked');
+						items[i] = '-' + items[i];
+					}
+					localStorage.setItem('items', JSON.stringify(items));
+				});
+				itemsList.appendChild(li);
+			}
+		}
+	</script>
+</body>
 </html>
-
-
-<style>
-    img {
-  display: block;
-  margin-top: 10px;
-}
-
-h1 {
-  font-size: 72px;
-  background: -webkit-linear-gradient(rgb(255, 5, 5), rgb(228, 164, 15), rgb(228, 15, 224));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-family: 'Poppins', sans-serif;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
-    font-size: 22px;
-  background-color: #696969;
-}
-
-
-</style>
-
-<script>
-    document.getElementById("showImage").onclick = showImage;
-
-function showImage() {
-  var images = [
-    {link: "https://www.rd.com/wp-content/uploads/2021/01/GettyImages-1175550351.jpg",
-    width: "250",
-    height: "175"},
-    {link: "https://i.pinimg.com/originals/01/6f/72/016f72c5812e1b8f71bdbf19d8c7558b.jpg",
-    width: "350",
-    height: "250"},
-    {link: "https://nationaltoday.com/wp-content/uploads/2020/08/international-cat-day-640x514.jpg",
-    width: "500",
-    height: "343"},
-    {link: "https://www.humanesociety.org/sites/default/files/2022-08/hl-yp-cats-579652.jpg",
-    width: "500",
-    height: "343", },
-    {link: "https://raw.githubusercontent.com/knayak35/cat-images/main/lily1.png",
-    width: "300",
-    height: "500", },
-    {link: "https://raw.githubusercontent.com/knayak35/cat-images/main/lily2.png",
-    width: "350",
-    height: "500", }, 
-    {link: "https://raw.githubusercontent.com/knayak35/cat-images/main/lily3.png",
-    width: "300",
-    height: "500", }
-
-    
-];
-  
-  var random = Math.floor(Math.random() * images.length);
-  
-  var image = document.createElement("img");
-  image.src = images[random].link;
-  image.width = images[random].width;
-  image.height = images[random].height;
-
-  
-  
-  var elImgs = document.getElementsByTagName("img");
-  
-  if (elImgs.length > 0) {
-    document.body.replaceChild(image, elImgs[0]);
-  } else {
-    document.body.appendChild(image);
-  }
-}
-
-</script>
