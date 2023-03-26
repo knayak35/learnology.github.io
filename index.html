@@ -2,167 +2,223 @@
 <html>
 <head>
 	<title>To-Do List</title>
-	<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
 	<style>
-	body {
-		font-family: 'Poppins', sans-serif;
-		margin: 0;
-		padding: 0;
-		background-color: #f7f7f7;
-	}
-	h1 {
-		text-align: center;
-		margin-top: 50px;
-	}
-	.container {
-		margin: 50px auto;
-		width: 80%;
-		background-color: #fff;
-		padding: 30px;
-		box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
-		border-radius: 5px;
-	}
-	.form-group {
-		margin-bottom: 20px;
-	}
-	label {
-		display: block;
-		margin-bottom: 5px;
-	}
-	input[type="text"] {
-		padding: 10px;
-		border: 1px solid #ccc;
-		border-radius: 5px;
-		width: 100%;
-	}
-	button[type="submit"] {
-		background-color: #e91e63;
+		body {
+			font-family: 'Poppins', sans-serif;
+			background-color: #f2f2f2;
+		}
+		h1 {
+			text-align: center;
+			margin-top: 50px;
+			color: #555;
+		}
+		#container {
+			width: 500px;
+			margin: 0 auto;
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0px 0px 10px #aaa;
+		}
+		input[type="text"] {
+			padding: 10px;
+			border: none;
+			border-radius: 5px;
+			width: 80%;
+			font-size: 16px;
+			color: #555;
+			background-color: #f2f2f2;
+		}
+		input[type="submit"] {
+			padding: 10px;
+			border: none;
+			border-radius: 5px;
+			width: 20%;
+			font-size: 16px;
+			color: #fff;
+			background-color: #555;
+			cursor: pointer;
+		}
+		input[type="submit"]:hover {
+			background-color: #333;
+		}
+		ul {
+			list-style-type: none;
+			padding: 0;
+			margin: 0;
+		}
+		li {
+			padding: 10px;
+			border-bottom: 1px solid #ccc;
+			position: relative;
+			display: flex;
+			align-items: center;
+		}
+		li:last-child {
+			border-bottom: none;
+		}
+        .category {
+	margin-right: 20px;
+}
+		.close {
+			position: absolute;
+			right: 0;
+			top: 0;
+			padding: 10px;
+			color: #fff;
+			font-weight: bold;
+			cursor: pointer;
+		}
+		.close:hover {
+			background-color: #f44336;
+		}
+		li.checked {
+			background-color: #888;
+			color: #fff;
+			text-decoration: line-through;
+		}
+		li.checked .close:hover {
+			background-color: #c33;
+		}
+		.form-group {
+			margin-bottom: 20px;
+		}
+		.form-group label {
+			display: block;
+			margin-bottom: 5px;
+			color: #555;
+			font-size: 16px;
+		}
+		.form-group select {
+			padding: 10px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			width: 100%;
+			font-size: 16px;
+			color: #555;
+			background-color: #fff;
+			appearance: none;
+			-webkit-appearance: none;
+			background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#555" width="18px" height="18px"><path d="M7.41,8.59L12,13.17l4.59-4.58L18,9l-6,6l-6-6L7.41,8.59z"/></svg>');
+			background-repeat: no-repeat;
+			background-position: right 10px center;
+			cursor: pointer;
+		
+        }
+	.jee {
+		background-color: #1D2C65;
 		color: #fff;
-		border: none;
-		padding: 10px 20px;
-		border-radius: 5px;
-		cursor: pointer;
 	}
-	button[type="submit"]:hover {
-		background-color: #c2185b;
+	.sat {
+		background-color: #6B5B9A;
+		color: #fff;
 	}
-	ul {
-		list-style: none;
-		margin: 0;
-		padding: 0;
+	.ap {
+		background-color: #B088AD;
+		color: #fff;
 	}
-	li {
-		padding: 10px;
-		margin-bottom: 10px;
-		position: relative;
+	.schoolwork {
+		background-color: #EB998B;
+		color: #fff;
 	}
-	li span {
-		position: absolute;
-		top: 10px;
-		right: 10px;
-		color: #e91e63;
-		cursor: pointer;
+	.olympiads {
+		background-color: #FEB873;
+		color: #fff;
 	}
-	li.checked {
-		text-decoration: line-through;
-		color: #aaa;
-	}
-	.clear {
-		text-align: center;
-		margin-top: 30px;
-	}
-	.clear button {
-		background-color: #fff;
-		color: #e91e63;
-		border: 1px solid #e91e63;
-		padding: 10px 20px;
-		border-radius: 5px;
-		cursor: pointer;
-		box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
-		transition: all 0.3s ease;
-	}
-	.clear button:hover {
-		transform: translateY(-5px);
-		box-shadow: 0px 10px 15px rgba(0,0,0,0.2);
-	}
-
-	</style>
+</style>
 </head>
 <body>
 	<h1>To-Do List</h1>
-	<div class="container">
-		<form id="addForm">
+	<div id="container">
+		<form id="todo-form">
 			<div class="form-group">
-				<label for="newItem">Add a new item:</label>
-				<input type="text" id="newItem" placeholder="Type here...">
+				<label for="todo-input">Task:</label>
+				<input type="text" id="todo-input" placeholder="Add task...">
 			</div>
 			<div class="form-group">
-				<button type="submit">Add Item</button>
+				<label for="category-select">Category:</label>
+				<select id="category-select">
+					<option value="JEE" class="jee">JEE</option>
+					<option value="SAT" class="sat">SAT</option>
+					<option value="AP" class="ap">AP</option>
+					<option value="School" class="schoolwork">Schoolwork/Homework</option>
+					<option value="Olympiads" class="olympiads">Olympiads</option>
+				</select>
 			</div>
+			<input type="submit" value="Add"><br><br>
 		</form>
-		<ul id="itemsList">
-		</ul>
-		<div class="clear">
-			<button id="clearBtn">Clear All</button>
-		</div>
-	</div>
-	<script>
-		// Get the stored items if any
-		let items = JSON.parse(localStorage.getItem('items')) || [];
-
-		// Render the stored items to the list
-		renderItems();
-
-		// Add a new item to the list
-		document.querySelector('#addForm').addEventListener('submit', function(e) {
-			e.preventDefault();
-			let newItem = document.querySelector('#newItem').value.trim();
-			if (newItem !== '') {
-				items.push(newItem);
-				localStorage.setItem('items', JSON.stringify(items));
-				renderItems();
-				document.querySelector('#newItem').value = '';
-			}
-		});
-
-		// Clear all items from the list
-		document.querySelector('#clearBtn').addEventListener('click', function() {
-			items = [];
-			localStorage.removeItem('items');
-			renderItems();
-		});
-
-		// Render the items to the list
-		function renderItems() {
-			let itemsList = document.querySelector('#itemsList');
-			itemsList.innerHTML = '';
-			for (let i = 0; i < items.length; i++) {
-				let li = document.createElement('li');
-				li.innerText = items[i];
-				let span = document.createElement('span');
-				span.innerHTML = '&times;';
-				span.addEventListener('click', function() {
-					items.splice(i, 1);
-					localStorage.setItem('items', JSON.stringify(items));
-					renderItems();
-				});
-				li.appendChild(span);
-				if (items[i].startsWith('-')) {
-					li.classList.add('checked');
-				}
-				li.addEventListener('click', function() {
-					if (li.classList.contains('checked')) {
-						li.classList.remove('checked');
-						items[i] = items[i].substring(1);
-					} else {
-						li.classList.add('checked');
-						items[i] = ' -' + items[i];
-					}
-					localStorage.setItem('items', JSON.stringify(items));
-				});
-				itemsList.appendChild(li);
-			}
-		}
-	</script>
-</body>
-</html>
+		<ul id="todo-list">
+        </ul>
+    </div>
+    <script>
+        const form = document.querySelector('#todo-form');
+        const input = document.querySelector('#todo-input');
+        const categorySelect = document.querySelector('#category-select');
+        const todoList = document.querySelector('#todo-list');
+        
+        // get todos from local storage or set empty array if not exist
+        let todos = JSON.parse(localStorage.getItem('todos')) || [];
+        
+        // render todos
+        function renderTodos() {
+            todoList.innerHTML = '';
+            todos.forEach((todo, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span class="category ${todo.category}">${todo.category}</span>
+                    ${todo.title}
+                    <span class="close">&times;</span>
+                `;
+                if (todo.completed) {
+                    li.classList.add('checked');
+                }
+                li.querySelector('.close').addEventListener('click', () => {
+                    removeTodo(index);
+                });
+                li.addEventListener('click', () => {
+                    toggleTodo(index);
+                });
+                todoList.appendChild(li);
+            });
+            localStorage.setItem('todos', JSON.stringify(todos));
+        }
+        
+        // add todo
+        function addTodo() {
+            const title = input.value.trim();
+            const category = categorySelect.value;
+            if (title !== '') {
+                todos.push({
+                    title,
+                    category,
+                    completed: false
+                });
+                input.value = '';
+                categorySelect.value = 'jee';
+                renderTodos();
+            }
+        }
+        
+        // remove todo
+        function removeTodo(index) {
+            todos.splice(index, 1);
+            renderTodos();
+        }
+        
+        // toggle todo completed status
+        function toggleTodo(index) {
+            todos[index].completed = !todos[index].completed;
+            renderTodos();
+        }
+        
+        // event listeners
+        form.addEventListener('submit', (event) => {
+            event.preventDefault
+            addTodo();
+	});
+	
+	// initial render
+	renderTodos();
+</script>
+    
